@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI & LLMs Publications | Yue Yu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-muted: #999;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --bg: #fafafa;
+            --card-bg: #fff;
+            --border: #e5e5e5;
+            --shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 340px;
+            padding: 50px 32px;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 3px solid #fff;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .name-cn {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .affiliation {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .contact a:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+
+        /* Skills Tags */
+        .skills {
+            margin-bottom: 24px;
+        }
+
+        .skills-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--accent);
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #bfdbfe;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .skill-tag.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            border-color: #1d4ed8;
+        }
+
+        /* Sidebar Sections */
+        .sidebar-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .exp-item-compact {
+            margin-bottom: 14px;
+        }
+
+        .exp-item-compact:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-role {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .exp-place {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .exp-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Navigation */
+        .nav {
+            margin-top: auto;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .nav a {
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: #f3f4f6;
+            color: var(--text-primary);
+        }
+
+        .nav a.active {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 340px;
+            flex: 1;
+            padding: 50px 50px 80px;
+            max-width: 800px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--text-primary);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 24px 0 10px;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .intro {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Publications */
+        .pub-year {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 28px 0 14px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .pub-list {
+            list-style: none;
+            counter-reset: pub-counter;
+        }
+
+        .pub-item {
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+            counter-increment: pub-counter;
+        }
+
+        .pub-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .pub-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .pub-title::before {
+            content: counter(pub-counter) ". ";
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .pub-authors {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .pub-authors .self {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .pub-venue {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pub-links a {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 3px 8px;
+            background: #eff6ff;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .pdf-link {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 2px 6px;
+            background: #eff6ff;
+            border-radius: 4px;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        .pdf-link:hover {
+            background: #dbeafe;
+        }
+
+        .pub-links a:hover {
+            background: #dbeafe;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 500;
+        }
+
+        .badge-award {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Research Area Badges */
+        .area-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .area-se {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .area-dist {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .area-llm {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 300px;
+                padding: 40px 24px;
+            }
+            .main {
+                margin-left: 300px;
+                padding: 40px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 32px 24px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main {
+                margin-left: 0;
+                padding: 32px 24px;
+            }
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #dbeafe;
+            color: var(--accent);
+        }
+
+        /* Visitor Statistics */
+        .visitor-stats {
+            margin: 40px 0;
+            padding: 24px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            border: 1px solid #bae6fd;
+        }
+
+        .visitor-stats h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .region-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .region-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px dotted var(--border);
+        }
+
+        .region-list li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="res/photo.jpg" alt="Yue Yu" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+                <h1 class="name">Yue Yu</h1>
+                <div class="name-cn">于 越</div>
+                <div class="title">Professor / 教授</div>
+                <div class="affiliation">National University of Defense Technology<br>国防科技大学</div>
+                
+                <div class="contact">
+                    <a href="mailto:yuyue@nudt.edu.cn">yuyue@nudt.edu.cn</a>
+                    <a href="https://github.com/Yuyue" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a>
+                </div>
+            </div>
+
+            <!-- Skills Tags -->
+            <div class="skills">
+                <div class="skills-title">Research Areas</div>
+                <div class="skill-tags">
+                    <a href="tag-software-engineering.html" class="skill-tag">Software Engineering</a>
+                    <a href="tag-distributed-ai.html" class="skill-tag">Distributed AI Systems</a>
+                    <a href="tag-agentic-ai.html" class="skill-tag active">Agentic AI & LLMs</a>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Education</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Ph.D. in Software Engineering</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2013 – 2018</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Visiting Student</div>
+                    <div class="exp-place">UC Davis, USA</div>
+                    <div class="exp-time">2016 – 2017</div>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Experience</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2023 – Present</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Associate Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2020 – 2023</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Assistant Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2018 – 2020</div>
+                </div>
+            </div>
+            
+            <nav class="nav">
+                <a href="index.html#about">About</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="index.html#awards">Awards</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <section id="publications">
+                <h2>Agentic AI & LLMs Publications</h2>
+                <div class="pub-year">2026</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Symphony-MoE: Harmonizing Disparate Pre-trained Models into a Coherent Mixture-of-Experts <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Qi Wang, Hanyang Peng, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 40th Annual AAAI Conference on Artificial Intelligence (AAAI 2026), Singapore. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/SymphonyMoE-AAAI2026.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Coding in a Bubble? Evaluating LLMs in Resolving Context Adaptation Bugs During Code Adaptation <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, Xinjun Mao, Shangwen Wang, Yuxin Zhao, Yao Lu, Zezhou Tang, Wenyu Xu, Longfei Sun, Changrong Xie, Kang Yang, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The ACM International Conference on the Foundations of Software Engineering (FSE 2026), Montreal, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CtxBugs-FSE2026.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">GEPO: Group Expectation Policy Optimization for Stable Heterogeneous Reinforcement Learning <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Han Zhang, RuibinZheng, ZeXuan Yi, Zhuo Zhang, Hanyang Peng, Hui Wang, Jiayin Qi, Binxing Fang, Ruifeng Xu, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 14th International Conference on Learning Representations (ICLR 2026), Brazil. <a href="res/paper/GEPO-ICLR2026.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Map as a Prompt: Learning Multi-Modal Spatial-Signal Foundation Models for Cross-scenario Wireless Localization <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yong Chu, Xun Zhou, Zenglin Xu, Hui Wang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The 14th International Conference on Learning Representations (ICLR 2026), Brazil. <a href="#" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Preserve and Sculpt: Manifold-Aligned Fine-tuning of Vision-Language Models for Few-Shot Learning <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Dexia Chen, Qianjie Zhu, Weibing Li, <span class="self">Yue Yu</span>, Tong Zhang, Ruixuan Wang</div>
+                        <div class="pub-venue">The 14th International Conference on Learning Representations (ICLR 2026), Brazil. <a href="res/paper/MPStuning-ICLR2026.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">SecP-Tuning: Efficient Privacy-Preserving Prompt Tuning for Large Language Models via MPC <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jinglong Luo, Zhuo Zhang, Yehong Zhang, Shiyu Liu, Ye Dong, Hui Wang, <span class="self">Yue Yu</span>, Xun Zhou, Zenglin Xu</div>
+                        <div class="pub-venue">The 14th International Conference on Learning Representations (ICLR 2026), Brazil. <a href="res/paper/SecPtuning-ICLR2026.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Survey on Learning-based Dynamic Fault Localization: From Traditional Machine Learning to Large Language Models <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Chunyan Liu, Yan Lei, Huan Xie, Jinping Wang, <span class="self">Yue Yu</span>, David Lo</div>
+                        <div class="pub-venue">ACM Computing Surveys (CSUR), 2026. (JCR-1) <span class="badge">JCR-1</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2025</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">SpecEM: Training-Free LLM Ensembling via Iterative Drafting, Verification, and Online Feedback <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Bo Lv, Nayu Liu, Chen Tang, Xin Liu, <span class="self">Yue Yu</span> (corresponding author), Ping Luo</div>
+                        <div class="pub-venue">The Thirty-ninth Annual Conference on Neural Information Processing Systems (NeurIPS 2025), San Diego, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/SpecEM_NeurIPS2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Instruct or Interact? Exploring and Eliciting LLMs' Capability in Code Snippet Adaptation Through Prompt Engineering <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, <span class="self">Yue Yu</span> (corresponding author), Xinjun Mao, Shangwen Wang, Kang Yang, Yao Lu, Zhang Zhang and Yuxin Zhao</div>
+                        <div class="pub-venue">The 47th International Conference on Software Engineering (ICSE 2025), Ottawa, Ontario, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CodeAdp_ICSE2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">AdaptEval: A Benchmark for Evaluating Large Language Models on Code Snippet Adaptation <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, Xinjun Mao, Shangwen Wang, Yuxin Zhao, Yao Lu, Jin Zhang, Zhang Zhang, Kang Yang and <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 40th IEEE/ACM International Conference on Automated Software Engineering (ASE 2025), Seoul, Korea. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/AdaptEval-ASE2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Obscura: Concealing Recomputation Overhead in Training of Large Language Models with Bubble-filling Pipeline Transformation <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Y. Huang, Y. Jiang, Z. Hong, W. Chen, B. Wang, W. Zhu, <span class="self">Yue Yu</span>, Zibin Zheng</div>
+                        <div class="pub-venue">2025 USENIX Annual Technical Conference (ATC 2025), BOSTON, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Obscura-ATC2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Correcting Large Language Model Behavior via Influence Function <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Han Zhang, Zhuo Zhang, Yi Zhang, Yuanzhao Zhai, Hanyang Peng, Yu Lei, <span class="self">Yue Yu</span>, Hui Wang, Bin Liang, Lin Gui, Ruifeng Xu</div>
+                        <div class="pub-venue">The 39th Annual AAAI Conference on Artificial Intelligence (AAAI 2025), Pennsylvania, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CorrectingLLM_AAAI2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Centrality-guided Pre-training for Graph <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Bin Liang, Shiwei Chen, Lin Gui, Hui Wang, <span class="self">Yue Yu</span>, Ruifeng Xu, Kam-Fai Wong</div>
+                        <div class="pub-venue">The 13th International Conference on Learning Representations (ICLR 2025), Singapore. <a href="res/paper/Centrality-ICLR2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Preference-Strength-Aware Self-Improving Alignment with Generative Preference Models <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yuanzhao Zhai, Zhuo Zhang, Cheng Yang, Kele Xu, <span class="self">Yue Yu</span>, Wei Li, Hui Wang, Zenglin Xu, Dawei Feng, Bo Ding, Huaimin Wang</div>
+                        <div class="pub-venue">The 48th edition of the ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2025), Padua, Italy. <a href="res/paper/Alignment-SIGIR2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">COPR: Continual Human Preference Learning via Optimal Policy Regularization <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Han Zhang, Lin Gui, Yu Lei, Yuanzhao Zhai, Yehong Zhang, Zhuo Zhang, Yulan He, Hui Wang, <span class="self">Yue Yu</span>, Kam-Fai Wong, Bin Liang, Ruifeng Xu</div>
+                        <div class="pub-venue">The 63nd Annual Meeting of the Association for Computational Linguistics (ACL 2025), Vienna, Austria. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/COPR-ACL2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Whether LLMs Know If They Know: Identifying Knowledge Boundaries via Debiased Historical In-Context Learning <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Bo Lv, Nayu Liu, Yang Shen, Xin Liu, Ping Luo, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The 63nd Annual Meeting of the Association for Computational Linguistics (ACL 2025), Vienna, Austria. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/knwLLM-ACL2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">CENTAUR: Bridging the Impossible Trinity of Privacy, Efficiency, and Performance in Privacy-Preserving Transformer Inference <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jinglong Luo, Guanzhong Chen, Yehong Zhang, SHIYU LIU, Hui Wang, <span class="self">Yue Yu</span>, Xun Zhou, Yuan Qi, Zenglin Xu</div>
+                        <div class="pub-venue">The 63nd Annual Meeting of the Association for Computational Linguistics (ACL 2025), Vienna, Austria. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CENTAUR-ACL2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">RingMoE: Mixture-of-modality-experts multi-modal foundation models for universal remote sensing image interpretation <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Hanbo Bi, Yingchao Feng, Boyuan Tong, Mengyu Wang, Haichen Yu, Yongqiang Mao, Hao Chang, Wenhui Diao, Peijin Wang, <span class="self">Yue Yu</span>, Hanyang Peng, Yehong Zhang, Kun Fu, Xian Sun</div>
+                        <div class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2025. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/RingMoE-TPAMI2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2024</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">At Which Training Stage Does Code Data Help LLMs Reasoning? <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yingwei Ma, Yue Liu, <span class="self">Yue Yu</span> (corresponding author), Yuanliang Zhang, Yu Jiang, Changjian Wang, Shanshan Li</div>
+                        <div class="pub-venue">The 12th International Conference on Learning Representations (ICLR 2024), Vienna, Austria. <a href="res/paper/CodeLLM-ICLR2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">EncryIP: A Practical Encryption-Based Framework for Model Intellectual Property Protection <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Xin Mu, Yu Wang, Zhengan Huang, Junzuo Lai, Yehong Zhang, Hui Wang, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 38th AAAI Conference on Artificial Intelligence (AAAI 2024), Vancouver, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/EncryIP-AAAI2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Rethinking the Evaluation of In-Context Learning for LLMs <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Guoxin Yu, Lemao Liu, Mo Yu, <span class="self">Yue Yu</span> (corresponding author), Xiang Ao</div>
+                        <div class="pub-venue">The 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP 2024), Miami, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/RethLLM_EMNLP2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Training and Serving System of Foundation Models: A Comprehensive Survey <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jiahang Zhou, Yanyu Chen, Zicong Hong, Wuhui Chen,<span class="self">Yue Yu</span>, Tao Zhang, Hui Wang, Chuanfu Zhang, Zibin Zheng</div>
+                        <div class="pub-venue">IEEE Open Journal of the Computer Society, 2024. (SCI) <span class="badge">SCI</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/LLMSurvey-OJCS2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Causally Motivated Personalized Federated Invariant Learning with Shortcut-Averse Information-Theoretic Regularization <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Xueyang Tang, Song Guo, Jingcai Guo, Jie Zhang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">41st International Conference on Machine Learning (ICML 2024), Vienna, Austria. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/FedReg-ICML2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Easing Concept Bleeding in Diffusion via Entity Localization and Anchoring <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jiewei Zhang, Song Guo, Peiran Dong, Jie Zhang, Ziming Liu, <span class="self">Yue Yu</span>, Xiaoming Wu</div>
+                        <div class="pub-venue">41st International Conference on Machine Learning (ICML 2024), Vienna, Austria. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/DiffLA-ICML2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">URG: A Unified Ranking and Generation Method for Ensembling Language Models <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Bo Lv, Chen Tang, Yanan Zhang, Xin Liu, Ping Luo, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The 62nd Annual Meeting of the Association for Computational Linguistics (ACL 2024), Bangkok, Thailand. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/URG-ACL2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">SecFormer: Fast and Accurate Privacy-Preserving Inference for Transformer Models via SMPC <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jinglong Luo, Yehong Zhang, Zhuo Zhang, Jiaqi Zhang, Xin Mu, Hui Wang, <span class="self">Yue Yu</span>, Zenglin Xu</div>
+                        <div class="pub-venue">The 62nd Annual Meeting of the Association for Computational Linguistics (ACL 2024), Bangkok, Thailand. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/SecFormer-ACL2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">GenView: Enhancing View Quality with Pretrained Generative Model for Self-Supervised Learning <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Xiaojie Li, Yibo Yang, Xiangtai Li, Jianlong Wu, <span class="self">Yue Yu</span>, Bernard Ghanem, Min Zhang</div>
+                        <div class="pub-venue">The 18th European Conference on Computer Vision (ECCV 2024), Milan, Italy. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/GenView-ECCV2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2023</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Birder: Communication-Efficient 1-bit Adaptive Optimizer for Practical Distributed DNN Training <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Hanyang Peng, Shuang Qin, <span class="self">Yue Yu</span> (corresponding author), Jin Wang, Hui Wang, Ge Li</div>
+                        <div class="pub-venue">The 37th Conference on Neural Information Processing Systems (NeurIPS 2023), New Orleans, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Birder-NeurIPS2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">DSP: Discriminative Soft Prompts for Zero-Shot Entity and Relation Extraction <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Bo Lv, Xin Liu, Shaojie Dai, Nayu Liu, Fan Yang, Ping Luo and <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 61st Annual Meeting of the Association for Computational Linguistics (ACL 2023), Toronto, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/DSP-ACL2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">FedPETuning: When Federated Learning Meets the Parameter-Efficient Tuning Methods of Pre-trained Language Models <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Zhuo Zhang, Yuanhang Yang, Yong Dai, Qifan Wang, <span class="self">Yue Yu</span>, Lizhen Qu and Zenglin Xu</div>
+                        <div class="pub-venue">The 61st Annual Meeting of the Association for Computational Linguistics (ACL 2023), Toronto, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/FedPETuning-ACL2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Ginver: Generative Model Inversion Attacks Against Collaborative Inference <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yupeng Yin, Xianglong Zhang, Huanle Zhang, Feng Li, <span class="self">Yue Yu</span>, Xiuzhen Cheng, Pengfei Hu</div>
+                        <div class="pub-venue">ACM Web Conference (WWW 2023), Austin, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/WWW23_Ginver.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Practical Privacy-Preserving Gaussian Process Regression via Secret Sharing <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Jinglong Luo, Yehong Zhang, Jiaqi Zhang, Shuang Qin,<span class="self">Yue Yu</span>, Hui Wang, Zenglin Xu</div>
+                        <div class="pub-venue">The 39th Conference on Uncertainty in Artificial Intelligence (UAI 2023), Pittsburgh, USA. (CCF-B) <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/PPGPR-UAI2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Mask Again: Masked Knowledge Distillation for Masked Video Modeling <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Xiaojie Li, Shaowei He, Jianlong Wu, <span class="self">Yue Yu</span>, Liqiang Nie, Min Zhang</div>
+                        <div class="pub-venue">The 31st ACM International Conference on Multimedia (ACM MM 2023), Ottawa, Canada. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/MDistillation-MM2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2022</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">deGraphCS: Embedding Variable-based Flow Graph for Neural Code Search <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Chen Zeng, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Xin Xia, Zhiming Wang, Mingyang Geng, Linxiao Bai, Wei Dong, and Xiangke Liao</div>
+                        <div class="pub-venue">ACM Transactions on Software Engineering and Methodology (TOSEM), 2022. (SCI, CCF-A) <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/deGraphCS-TOSEM2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Bridging Pre-trained Models and Downstream Tasks for Source Code Understanding <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Deze Wang, Zhouyang Jia, Shanshan Li, <span class="self">Yue Yu</span>, Yun Xiong, Wei Dong, Xiangke Liao</div>
+                        <div class="pub-venue">The 44th International Conference on Software Engineering (ICSE 2022), Pittsburgh, USA. (CCF-A) <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/pretrained-icse2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2021</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Detecting Adversarial Samples with Graph-Guided Testing <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Zuohui Chen, Renxuan Wang, Jingyang Xiang, <span class="self">Yue Yu</span>, Xin Xia, Shouling Ji, Qi Xuan, Xiaoniu Yang</div>
+                        <div class="pub-venue">The 36th IEEE/ACM International Conference on Automated Software Engineering (ASE), 2021. (CCF-A, Late Breaking Results Track) <a href="res/paper/AGT-ASE2021.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Dual Channel Among Task and Contribution on OSS Communities: An Empirical Study <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yu Zhang, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Zhixing Li and Xiaochuan Wang</div>
+                        <div class="pub-venue">International Journal of Software Engineering and Knowledge Engineering (IJSEKE), 2021. (SCI, CCF-C) <span class="badge">SCI, CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Duallinks-IJSEKE2021.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">PanGu-a: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors"></div>
+                        <div class="pub-venue">arXiv preprint arXiv:2104.12369 (2021). <a href="https://arxiv.org/abs/2104.12369" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2020</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Near-Online Multi-pedestrian Tracking via Combining Multiple Consistent Appearance Cues <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Weijiang Feng, Long Lan, Yong Luo, <span class="self">Yue Yu</span>, Xiang Zhang, Zhigang Luo</div>
+                        <div class="pub-venue">IEEE Transactions on Circuits and Systems for Video Technology (TCSVT) (SCI, CCF-B) <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/NOMT_TCSVT2020.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2019</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">HAF: A Hybrid Annotation Framework Based on Expert Knowledge and Learning Technique <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Gang Yin, Xinjun Mao, Huaimin Wang</div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2019. (SCI, CCF-B, Letter) <span class="badge">SCI, CCF-B, Letter</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/HAF-SCIS2019.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2018</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">A Hybrid Approach for Tag Hierarchy Construction <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Shangwen Wang, Tao Wang, Xiaoguang Mao, Gang Yin, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The 17th International Conference on Software Reuse (ICSR 2018), Madrid, Spain, 2018. <a href="res/paper/Hybird_Tag-ICSR2018.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2015</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Evaluating Bug Severity Using Crowd-based Knowledge: An Exploratory Study <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yang Zhang, Huaimin Wang, Gang Yin, Tao Wang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The Seventh Asia-Pacific Symposium on Internetware, Wuhan, China, 2015. <a href="res/paper/BugSOF_Internetware2015.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2014</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Ling. Who Should Review This Pull-Request: Reviewer Recommendation to Expedite Crowd Collaboration <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Charles X</div>
+                        <div class="pub-venue">The 21th Asia-Pacific Software Engineering Conference (APSEC 2014), JEJU, KOREA, 2014. (Best paper, CCF-C) <a href="res/paper/apsec2014.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2013</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">A Trusted Remote Attestation Model based on Trusted Computing <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Bo Liu, Gang Yin</div>
+                        <div class="pub-venue">The 12th IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom 2013), Melbourne, Australia, 2013. (CCF-C) <span class="badge">CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/trustcom2013_EI.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2012</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Inducing Taxonomy from Tags: An Agglomerative Hierarchical Clustering Framework <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Xiang Li, Huaimin Wang, Gang Yin, Tao Wang, Cheng Yang, <span class="self">Yue Yu</span>, Dengqing Tang</div>
+                        <div class="pub-venue">Advanced Data Mining and Applications (ADMA 2012), Springer Berlin Heidelberg, 2012. <a href="res/paper/ADMA12-camera-ready.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2011</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Trusted Computing Dynamic Attestation by Using Static Analysis Based Behavior Model <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Fajiang Yu, Xianglei Tang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">Proceedings of 9th IEEE International Symposium on Parallel and Distributed Processing with Applications Workshops, Bussan, Korea, 2011. <a href="res/paper/ISPDPAW.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2010</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Static Analysis-based Behavior Model Building for Trusted Computing Dynamic Verification <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Fajiang Yu, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">Wuhan University Journal of Natural Sciences, 15(3): 195-200, Wuhan University and Springer-Verlag Berlin Heidelberg, 2010. <a href="http://link.springer.com/article/10.1007/s11859-010-0303-9" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Visitor Statistics -->
+            <div class="visitor-stats">
+                <h3>🌍 Visitor Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">--</span>
+                        <span class="stat-label">Total Visitors</span>
+                    </div>
+                    <div class="stat-item regions">
+                        <span class="stat-label">Top Regions</span>
+                        <ul class="region-list">
+                            <li>China 🇨🇳</li>
+                            <li>USA 🇺🇸</li>
+                            <li>Europe 🇪🇺</li>
+                            <li>Asia Pacific 🌏</li>
+                        </ul>
+                    </div>
+                </div>    
+            </div>
+
+            <footer>
+                <p>© 2026 Yue Yu | 于越</p>
+                <p style="margin-top: 6px; font-size: 11px;">Last updated: February 2026</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

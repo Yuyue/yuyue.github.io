@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed AI Systems Publications | Yue Yu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-muted: #999;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --bg: #fafafa;
+            --card-bg: #fff;
+            --border: #e5e5e5;
+            --shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 340px;
+            padding: 50px 32px;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 3px solid #fff;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .name-cn {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .affiliation {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .contact a:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+
+        /* Skills Tags */
+        .skills {
+            margin-bottom: 24px;
+        }
+
+        .skills-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--accent);
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #bfdbfe;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .skill-tag.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            border-color: #1d4ed8;
+        }
+
+        /* Sidebar Sections */
+        .sidebar-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .exp-item-compact {
+            margin-bottom: 14px;
+        }
+
+        .exp-item-compact:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-role {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .exp-place {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .exp-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Navigation */
+        .nav {
+            margin-top: auto;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .nav a {
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: #f3f4f6;
+            color: var(--text-primary);
+        }
+
+        .nav a.active {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 340px;
+            flex: 1;
+            padding: 50px 50px 80px;
+            max-width: 800px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--text-primary);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 24px 0 10px;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .intro {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Publications */
+        .pub-year {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 28px 0 14px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .pub-list {
+            list-style: none;
+            counter-reset: pub-counter;
+        }
+
+        .pub-item {
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+            counter-increment: pub-counter;
+        }
+
+        .pub-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .pub-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .pub-title::before {
+            content: counter(pub-counter) ". ";
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .pub-authors {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .pub-authors .self {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .pub-venue {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pub-links a {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 3px 8px;
+            background: #eff6ff;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .pub-links a:hover {
+            background: #dbeafe;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 500;
+        }
+
+        .badge-award {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Research Area Badges */
+        .area-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .area-se {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .area-dist {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .area-llm {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 300px;
+                padding: 40px 24px;
+            }
+            .main {
+                margin-left: 300px;
+                padding: 40px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 32px 24px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main {
+                margin-left: 0;
+                padding: 32px 24px;
+            }
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #dbeafe;
+            color: var(--accent);
+        }
+
+        /* Visitor Statistics */
+        .visitor-stats {
+            margin: 40px 0;
+            padding: 24px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            border: 1px solid #bae6fd;
+        }
+
+        .visitor-stats h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .region-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .region-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px dotted var(--border);
+        }
+
+        .region-list li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="res/photo.jpg" alt="Yue Yu" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+                <h1 class="name">Yue Yu</h1>
+                <div class="name-cn">于 越</div>
+                <div class="title">Professor / 教授</div>
+                <div class="affiliation">National University of Defense Technology<br>国防科技大学</div>
+                
+                <div class="contact">
+                    <a href="mailto:yuyue@nudt.edu.cn">yuyue@nudt.edu.cn</a>
+                    <a href="https://github.com/Yuyue" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a>
+                </div>
+            </div>
+
+            <!-- Skills Tags -->
+            <div class="skills">
+                <div class="skills-title">Research Areas</div>
+                <div class="skill-tags">
+                    <a href="tag-software-engineering.html" class="skill-tag">Software Engineering</a>
+                    <a href="tag-distributed-ai.html" class="skill-tag active">Distributed AI Systems</a>
+                    <a href="tag-agentic-ai.html" class="skill-tag">Agentic AI & LLMs</a>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Education</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Ph.D. in Software Engineering</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2013 – 2018</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Visiting Student</div>
+                    <div class="exp-place">UC Davis, USA</div>
+                    <div class="exp-time">2016 – 2017</div>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Experience</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2023 – Present</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Associate Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2020 – 2023</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Assistant Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2018 – 2020</div>
+                </div>
+            </div>
+            
+            <nav class="nav">
+                <a href="index.html#about">About</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="index.html#awards">Awards</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <section id="publications">
+                <h2>Distributed AI Systems Publications (35 papers)</h2>
+                
+                <div class="pub-year">2026</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Symphony-MoE: Harmonizing Disparate Pre-trained Models into a Coherent Mixture-of-Experts <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Qi Wang, Hanyang Peng, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">AAAI 2026, Singapore <span class="badge">CCF-A</span> <a href="res/paper/SymphonyMoE-AAAI2026.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">GEPO: Group Expectation Policy Optimization for Stable Heterogeneous Reinforcement Learning <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Han Zhang, Ruibin Zheng, ZeXuan Yi, Zhuo Zhang, Hanyang Peng, Hui Wang, Jiayin Qi, Binxing Fang, Ruifeng Xu, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">ICLR 2026, Brazil <a href="res/paper/GEPO-ICLR2026.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">ParaSync: Exploiting Fine-Grained Parallelism for Efficient File Synchronization <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zhihao Zhang, Lu Tang, Huiba Li, <span class="self">Yue Yu</span>, Jiwu Shu, Yiming Zhang</div>
+                        <div class="pub-venue">FAST 2026, Santa Clara, USA <span class="badge">CCF-A</span></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Fate: Fast Edge Inference of Mixture-of-Experts Models via Cross-Layer Gate <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zhiyuan Fang, Xingfan Yu, Yuegui Huang, Zicong Hong, Yufeng Lyu, Wuhui Chen, <span class="self">Yue Yu</span>, Fan Yu</div>
+                        <div class="pub-venue">WWW 2026, Dubai, UAE <span class="badge">CCF-A</span></div>
+                    </li>
+                </ul>
+
+                <div class="pub-year">2025</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Klotski: Efficient Mixture-of-Expert Inference via Expert-Aware Multi-Batch Pipeline <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zhiyuan Fang, Yuegui Huang, Zicong Hong, Yufeng Lyu, Wuhui Chen, <span class="self">Yue Yu</span> (corresponding author), Fan Yu, Zibin Zheng</div>
+                        <div class="pub-venue">ASPLOS 2025, Rotterdam, Netherlands <span class="badge">CCF-A</span> <a href="res/paper/Klotski-ASPLOS2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Obscura: Concealing Recomputation Overhead in Training of Large Language Models with Bubble-filling Pipeline Transformation <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Y. Huang, Y. Jiang, Z. Hong, W. Chen, B. Wang, W. Zhu, <span class="self">Yue Yu</span>, Zibin Zheng</div>
+                        <div class="pub-venue">USENIX ATC 2025, Boston, USA <span class="badge">CCF-A</span> <a href="res/paper/Obscura-ATC2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Centrality-guided Pre-training for Graph <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Bin Liang, Shiwei Chen, Lin Gui, Hui Wang, <span class="self">Yue Yu</span>, Ruifeng Xu, Kam-Fai Wong</div>
+                        <div class="pub-venue">ICLR 2025, Singapore <a href="res/paper/Centrality-ICLR2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">CENTAUR: Bridging the Impossible Trinity of Privacy, Efficiency, and Performance in Privacy-Preserving Transformer Inference <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Jinglong Luo, Guanzhong Chen, Yehong Zhang, Shiyu Liu, Hui Wang, <span class="self">Yue Yu</span>, Xun Zhou, Yuan Qi, Zenglin Xu</div>
+                        <div class="pub-venue">ACL 2025, Vienna, Austria <span class="badge">CCF-A</span> <a href="res/paper/CENTAUR-ACL2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">CrossFS: Improving Cross-Domain File System Performance with CRDT-Based Metadata Synchronization <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Qiwen Ke, Yina Lv, Zhihao Zhang, Zhirong Shen, <span class="self">Yue Yu</span>, Hailiang Chen, Zhenglong Song, Xinbiao Gan, Jiaxin Li, Dongsheng Li, Xin Yao, Meiling Wang, Yiming Zhang</div>
+                        <div class="pub-venue">ACM TOS, 2025 <span class="badge">CCF-A</span></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Looking Back to Move Forward: Unveiling the Mysteries of HBM Errors to Predict Future Failures <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Shuyue Zhou, Xinbing Hu, Ronglong Wu, Jiahua Lu, Zhirong Shen, Zikang Xu, <span class="self">Yue Yu</span>, Yuze Jiang, Jiwu Shu, Kunling Yang, Feilong Lin, Yiming Zhang</div>
+                        <div class="pub-venue">ACM TOS, 2025 <span class="badge">CCF-A</span></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">NeMo: A Neuron-Level Modularizing-While-Training Approach for Decomposing DNN Models <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Xiaohan Bi, Binhang Qi, Hailong Sun, Xiang Gao, <span class="self">Yue Yu</span>, Xiaojun Liang</div>
+                        <div class="pub-venue">ACM TOSEM, 2025 <span class="badge">CCF-A</span> <a href="res/paper/NeMo-TOSEM2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">RingMoE: Mixture-of-modality-experts multi-modal foundation models for universal remote sensing image interpretation <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Hanbo Bi, Yingchao Feng, Boyuan Tong, Mengyu Wang, Haichen Yu, Yongqiang Mao, Hao Chang, Wenhui Diao, Peijin Wang, <span class="self">Yue Yu</span>, Hanyang Peng, Yehong Zhang, Kun Fu, Xian Sun</div>
+                        <div class="pub-venue">IEEE TPAMI, 2025 <span class="badge">CCF-A</span> <a href="res/paper/RingMoE-TPAMI2025.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+
+                <div class="pub-year">2024</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Optimus: Warming Serverless ML Inference via Inter-Function Model Transformation <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zicong Hong, Jian Lin, Song Guo, Sifu Luo, Wuhui Chen, Roger Wattenhofer, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">EuroSys 2024, Athens, Greece <span class="badge">CCF-A</span> <a href="res/paper/Optimus-Eurosys2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Training and Serving System of Foundation Models: A Comprehensive Survey <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Jiahang Zhou, Yanyu Chen, Zicong Hong, Wuhui Chen, <span class="self">Yue Yu</span>, Tao Zhang, Hui Wang, Chuanfu Zhang, Zibin Zheng</div>
+                        <div class="pub-venue">IEEE OJCS, 2024 <a href="res/paper/LLMSurvey-OJCS2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Causally Motivated Personalized Federated Invariant Learning with Shortcut-Averse Information-Theoretic Regularization <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Xueyang Tang, Song Guo, Jingcai Guo, Jie Zhang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">ICML 2024, Vienna, Austria <span class="badge">CCF-A</span> <a href="res/paper/FedReg-ICML2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">SecFormer: Fast and Accurate Privacy-Preserving Inference for Transformer Models via SMPC <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Jinglong Luo, Yehong Zhang, Zhuo Zhang, Jiaqi Zhang, Xin Mu, Hui Wang, <span class="self">Yue Yu</span>, Zenglin Xu</div>
+                        <div class="pub-venue">ACL 2024, Bangkok, Thailand <span class="badge">CCF-A</span> <a href="res/paper/SecFormer-ACL2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+
+                <div class="pub-year">2023</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">A Survey on Scheduling Techniques in Computing and Network Convergence <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Shujiong Tang, <span class="self">Yue Yu</span> (corresponding author), Hui Wang, Guiliang Wang, Wuhui Chen, Zenglin Xu, Song Guo, Wen Gao</div>
+                        <div class="pub-venue">IEEE COMST, 2023 <span class="badge">JCR-Q1</span> <a href="res/paper/CNCSche-Survey-COMST.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Birder: Communication-Efficient 1-bit Adaptive Optimizer for Practical Distributed DNN Training <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Hanyang Peng, Shuang Qin, <span class="self">Yue Yu</span> (corresponding author), Jin Wang, Hui Wang, Ge Li</div>
+                        <div class="pub-venue">NeurIPS 2023, New Orleans, USA <span class="badge">CCF-A</span> <a href="res/paper/Birder-NeurIPS2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Intelligence-Endogenous Management Platform for Computing and Network Convergence <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zicong Hong, Xiaoyu Qiu, Jian Lin, Wuhui Chen, <span class="self">Yue Yu</span> (corresponding author), Hui Wang, Song Guo, Wen Gao</div>
+                        <div class="pub-venue">IEEE Network, 2023 <span class="badge">JCR-Q1</span> <a href="res/paper/AICNC-IEEE%20Network%202023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">FedPETuning: When Federated Learning Meets the Parameter-Efficient Tuning Methods of Pre-trained Language Models <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Zhuo Zhang, Yuanhang Yang, Yong Dai, Qifan Wang, <span class="self">Yue Yu</span>, Lizhen Qu, Zenglin Xu</div>
+                        <div class="pub-venue">ACL 2023, Toronto, Canada <span class="badge">CCF-A</span> <a href="res/paper/FedPETuning-ACL2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Ginver: Generative Model Inversion Attacks Against Collaborative Inference <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Yupeng Yin, Xianglong Zhang, Huanle Zhang, Feng Li, <span class="self">Yue Yu</span>, Xiuzhen Cheng, Pengfei Hu</div>
+                        <div class="pub-venue">WWW 2023, Austin, USA <span class="badge">CCF-A</span> <a href="res/paper/WWW23_Ginver.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Fine-grained Key-Value Memory Enhanced Predictor for Video Representation Learning <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Xiaojie Li, Jianlong Wu, Shaowei He, Kang Shuo, <span class="self">Yue Yu</span>, Liqiang Nie, Min Zhang</div>
+                        <div class="pub-venue">ACM MM 2023, Ottawa, Canada <span class="badge">CCF-A</span> <a href="res/paper/FKME-MM2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Mask Again: Masked Knowledge Distillation for Masked Video Modeling <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Xiaojie Li, Shaowei He, Jianlong Wu, <span class="self">Yue Yu</span>, Liqiang Nie, Min Zhang</div>
+                        <div class="pub-venue">ACM MM 2023, Ottawa, Canada <span class="badge">CCF-A</span> <a href="res/paper/MDistillation-MM2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+
+                <div class="pub-year">2021</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Transductive Relation-Propagation with Decoupling Training for Few-Shot Learning <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">Yuqing Ma, Shihao Bai, Wei Liu, Shuo Wang, <span class="self">Yue Yu</span>, Xiao Bai, Xianglong Liu, Meng Wang</div>
+                        <div class="pub-venue">IEEE TNNLS, 2021 <span class="badge">CCF-B</span> <a href="res/paper/TRFewShot_TNNLS2021.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">PanGu-a: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation <span class="area-badge area-dist">Distributed AI</span></div>
+                        <div class="pub-authors">-</div>
+                        <div class="pub-venue">arXiv 2104.12369, 2021 <a href="https://arxiv.org/abs/2104.12369" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Visitor Statistics -->
+            <div class="visitor-stats">
+                <h3>🌍 Visitor Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">--</span>
+                        <span class="stat-label">Total Visitors</span>
+                    </div>
+                    <div class="stat-item regions">
+                        <span class="stat-label">Top Regions</span>
+                        <ul class="region-list">
+                            <li>China 🇨🇳</li>
+                            <li>USA 🇺🇸</li>
+                            <li>Europe 🇪🇺</li>
+                            <li>Asia Pacific 🌏</li>
+                        </ul>
+                    </div>
+                </div>    
+            </div>
+
+            <footer>
+                <p>© 2026 Yue Yu | 于越</p>
+                <p style="margin-top: 6px; font-size: 11px;">Last updated: February 2026</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

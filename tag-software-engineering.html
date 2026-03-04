@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Publications | Yue Yu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-muted: #999;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --bg: #fafafa;
+            --card-bg: #fff;
+            --border: #e5e5e5;
+            --shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 340px;
+            padding: 50px 32px;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 3px solid #fff;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .name-cn {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .affiliation {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .contact a:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+
+        /* Skills Tags */
+        .skills {
+            margin-bottom: 24px;
+        }
+
+        .skills-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--accent);
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #bfdbfe;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .skill-tag.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            border-color: #1d4ed8;
+        }
+
+        /* Sidebar Sections */
+        .sidebar-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .exp-item-compact {
+            margin-bottom: 14px;
+        }
+
+        .exp-item-compact:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-role {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .exp-place {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .exp-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Navigation */
+        .nav {
+            margin-top: auto;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .nav a {
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: #f3f4f6;
+            color: var(--text-primary);
+        }
+
+        .nav a.active {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 340px;
+            flex: 1;
+            padding: 50px 50px 80px;
+            max-width: 800px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--text-primary);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 24px 0 10px;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .intro {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Publications */
+        .pub-year {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 28px 0 14px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .pub-list {
+            list-style: none;
+            counter-reset: pub-counter;
+        }
+
+        .pub-item {
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+            counter-increment: pub-counter;
+        }
+
+        .pub-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .pub-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .pub-title::before {
+            content: counter(pub-counter) ". ";
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .pub-authors {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .pub-authors .self {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .pub-venue {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pub-links a {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 3px 8px;
+            background: #eff6ff;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .pdf-link {
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 2px 6px;
+            background: #eff6ff;
+            border-radius: 4px;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        .pdf-link:hover {
+            background: #dbeafe;
+        }
+
+        .pub-links a:hover {
+            background: #dbeafe;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 500;
+        }
+
+        .badge-award {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Research Area Badges */
+        .area-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .area-se {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .area-dist {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .area-llm {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 300px;
+                padding: 40px 24px;
+            }
+            .main {
+                margin-left: 300px;
+                padding: 40px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 32px 24px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main {
+                margin-left: 0;
+                padding: 32px 24px;
+            }
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #dbeafe;
+            color: var(--accent);
+        }
+
+        /* Visitor Statistics */
+        .visitor-stats {
+            margin: 40px 0;
+            padding: 24px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            border: 1px solid #bae6fd;
+        }
+
+        .visitor-stats h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .region-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .region-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px dotted var(--border);
+        }
+
+        .region-list li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="res/photo.jpg" alt="Yue Yu" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+                <h1 class="name">Yue Yu</h1>
+                <div class="name-cn">于 越</div>
+                <div class="title">Professor / 教授</div>
+                <div class="affiliation">National University of Defense Technology<br>国防科技大学</div>
+                
+                <div class="contact">
+                    <a href="mailto:yuyue@nudt.edu.cn">yuyue@nudt.edu.cn</a>
+                    <a href="https://github.com/Yuyue" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a>
+                </div>
+            </div>
+
+            <!-- Skills Tags -->
+            <div class="skills">
+                <div class="skills-title">Research Areas</div>
+                <div class="skill-tags">
+                    <a href="tag-software-engineering.html" class="skill-tag active">Software Engineering</a>
+                    <a href="tag-distributed-ai.html" class="skill-tag">Distributed AI Systems</a>
+                    <a href="tag-agentic-ai.html" class="skill-tag">Agentic AI & LLMs</a>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Education</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Ph.D. in Software Engineering</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2013 – 2018</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Visiting Student</div>
+                    <div class="exp-place">UC Davis, USA</div>
+                    <div class="exp-time">2016 – 2017</div>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Experience</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2023 – Present</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Associate Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2020 – 2023</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Assistant Professor</div>
+                    <div class="exp-place">NUDT</div>
+                    <div class="exp-time">2018 – 2020</div>
+                </div>
+            </div>
+            
+            <nav class="nav">
+                <a href="index.html#about">About</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="index.html#awards">Awards</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <section id="publications">
+                <h2>Software Engineering Publications</h2>
+                <div class="pub-year">2026</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Coding in a Bubble? Evaluating LLMs in Resolving Context Adaptation Bugs During Code Adaptation. the ACM International Conference on the Foundations of Software Engineering (FSE 2026), Montreal, Canada. (CCF-A) ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, Xinjun Mao, Shangwen Wang, Yuxin Zhao, Yao Lu, Zezhou Tang, Wenyu Xu, Longfei Sun, Changrong Xie, Kang Yang, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue"> <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CtxBugs-FSE2026.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Survey on Learning-based Dynamic Fault Localization: From Traditional Machine Learning to Large Language Models. ACM Computing Surveys (CSUR), 2026. (JCR-1) [pdf] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Chunyan Liu, Yan Lei, Huan Xie, Jinping Wang, <span class="self">Yue Yu</span>, David Lo</div>
+                        <div class="pub-venue"> <span class="badge">JCR-1</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2025</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Klotski: Efficient Mixture-of-Expert Inference via Expert-Aware Multi-Batch Pipeline. The ACM International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS 2025), Rotterdam, Netherlands. (CCF-A) ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Zhiyuan Fang, Yuegui Huang, Zicong Hong, Yufeng Lyu, Wuhui Chen, <span class="self">Yue Yu</span> (corresponding author), Fan Yu, Zibin Zheng</div>
+                        <div class="pub-venue"> <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Klotski-ASPLOS2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Instruct or Interact? Exploring and Eliciting LLMs' Capability in Code Snippet Adaptation Through Prompt Engineering <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, <span class="self">Yue Yu</span> (corresponding author), Xinjun Mao, Shangwen Wang, Kang Yang, Yao Lu, Zhang Zhang and Yuxin Zhao</div>
+                        <div class="pub-venue">The 47th International Conference on Software Engineering (ICSE 2025), Ottawa, Ontario, Canada. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CodeAdp_ICSE2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">AdaptEval: A Benchmark for Evaluating Large Language Models on Code Snippet Adaptation <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, Xinjun Mao, Shangwen Wang, Yuxin Zhao, Yao Lu, Jin Zhang, Zhang Zhang, Kang Yang and <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 40th IEEE/ACM International Conference on Automated Software Engineering (ASE 2025), Seoul, Korea. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/AdaptEval-ASE2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">OBDD-NET: End-to-End Learning of Ordered Binary Decision Diagrams <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Junming Qiu, Rongzhen Ye, Weilin Luo, Kunxun Qi, Hai Wan*, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 34th ACM International Conference on Information and Knowledge Management (CIKM 2025), Seoul, Korea. (CCF-B) ] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/OBDD-CIKM2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Are External Contributions Important to Project Productivity in Open Source Software? A Deep Insight based on Issue Entropy <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Shen, Tao Wang, Xunhui Zhang, Yang Zhang, Cheng Yang, <span class="self">Yue Yu</span>, Huaimin Wang</div>
+                        <div class="pub-venue">The 28th ACM SIGCHI Conference on Computer-Supported Cooperative Work and Social Computing (CSCW 2025), Bergen, Norway. (CCF-A) [pdf] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">NeMo: A Neuron-Level Modularizing-While-Training Approach for Decomposing DNN Models <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xiaohan Bi, Binhang Qi, Hailong Sun, Xiang Gao, <span class="self">Yue Yu</span>, Xiaojun Liang</div>
+                        <div class="pub-venue">ACM Transactions on Software Engineering and Methodology (TOSEM), 2025. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/NeMo-TOSEM2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">RingMoE: Mixture-of-modality-experts multi-modal foundation models for universal remote sensing image interpretation <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Hanbo Bi, Yingchao Feng, Boyuan Tong, Mengyu Wang, Haichen Yu, Yongqiang Mao, Hao Chang, Wenhui Diao, Peijin Wang, <span class="self">Yue Yu</span>, Hanyang Peng, Yehong Zhang, Kun Fu, Xian Sun</div>
+                        <div class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2025. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/RingMoE-TPAMI2025.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2024</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">At Which Training Stage Does Code Data Help LLMs Reasoning? <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yingwei Ma, Yue Liu, <span class="self">Yue Yu</span> (corresponding author), Yuanliang Zhang, Yu Jiang, Changjian Wang, Shanshan Li</div>
+                        <div class="pub-venue">The 12th International Conference on Learning Representations (ICLR 2024), Vienna, Austria. ] <a href="res/paper/CodeLLM-ICLR2024.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Cut to the Chase: An Error-Oriented Approach to Detect Error-Handling Bugs. The ACM International Conference on the Foundations of Software Engineering (FSE 2024), Porto de Galinhas, Brazil. (CCF-A) ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haoran Liu, Zhouyang Jia, Shanshan Li, Yan Lei, <span class="self">Yue Yu</span>, Yu Jiang, Xiaoguang Mao, Liao Xiangke</div>
+                        <div class="pub-venue"> <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/ehbug-fse2024.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">How do Developers Adapt Code Snippets to Their Contexts? An Empirical Study of Context-Based Code Snippet Adaptations <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, Yao Lu, <span class="self">Yue Yu</span>, Xinjun Mao, Yang Zhang, and Yuxin Zhao</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2024. (SCI, CCF-A) [pdf] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Towards More Precise Coincidental Correctness Detection with Deep Semantic Learning <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Huan Xie, Yan Lei, Meng Yan, Shanshan Li, Xiaoguang Mao, <span class="self">Yue Yu</span>, David Lo</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2024. (SCI, CCF-A) [pdf] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2023</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">PLUMBER: Boosting the Propagation of Vulnerability Fixes in the npm Ecosystem <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Ying Wang, Peng Sun, Lin Pei, <span class="self">Yue Yu</span> (corresponding author), Chang Xu, Shing-Chi Cheung, Hai Yu, Zhiliang Zhu</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2023. (SCI, CCF-A) ]] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Plumber-TSE2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Two Sides of the Same Coin: Exploiting the Impact of Identifiers in Neural Code Comprehension <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Shuzheng Gao, Cuiyun Gao, Chaozheng Wang, Jun Sun, David Lo, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">The 45th International Conference on Software Engineering (ICSE 2023), Melbourne, Australia. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/NeuralCode-ICSE2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Understanding and Detecting On-the-Fly Configuration Bugs <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Teng Wang, Zhouyang Jia, Shanshan Li, Si Zheng, <span class="self">Yue Yu</span>, Erci Xu, Shaoliang Peng, Xiangke Liao</div>
+                        <div class="pub-venue">The 45th International Conference on Software Engineering (ICSE 2023), Melbourne, Australia. (CCF-A, Distinguished Paper Award) ] <a href="res/paper/Configbugs-ICSE2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">MulCS: Towards a Unified Deep Representation for Multilingual Code Search <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yingwei Ma, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Zhouyang Jia, Jun Ma, Rulin Xu, Wei Dong, Xiangke Liao</div>
+                        <div class="pub-venue">The 30th IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER 2023), Macao, China. (CCF-B, Distinguished Paper Award) ] <a href="res/paper/MulCS-saner2023.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Can Machine Learning Pipelines Be Better Configured?. The ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE 2023), San Francisco, USA. (CCF-A, Distinguished Paper Award) ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Yibo Wang, Ying Wang, Tingwei Zhang, <span class="self">Yue Yu</span>, Shing-Chi Cheung, Hai Yu, Zhiliang Zhu</div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="res/paper/MLConf-FSE2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">When Database Meets New Storage Devices: Understanding and Exposing Performance Mismatches via Configurations <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Haochen He, Erci Xu, Shanshan Li, Zhouyang Jia, Si Zheng, <span class="self">Yue Yu</span>, Jun Ma, Xiangke Liao</div>
+                        <div class="pub-venue">The 49th International Conference on Very Large Data Bases (VLDB 2023), Vancouver, Canada. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/DBConf-vldb23.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Multitask joint strategies of self-supervised representation learning on biomedical networks for drug discovery <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xiaoqi Wang, Yingjie Cheng, Yaning Yang, <span class="self">Yue Yu</span>, Fei Li, Shaoliang Peng</div>
+                        <div class="pub-venue">Nature Machine Intelligence, 2023. ]] <a href="res/paper/MSSL2drug-NMI.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Re-Thinking the Effectiveness of Batch Normalization and Beyond <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Hanyang Peng, <span class="self">Yue Yu</span>, Shiqi Yu</div>
+                        <div class="pub-venue">IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2023. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CBN-TPAMI2023.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">A Two-Stage Framework for Ambiguous Classification in Software Engineering <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Jiaying Li, Yan Lei, Shanshan Li, Haifang Zhou, <span class="self">Yue Yu</span>, Zhouyang Jia, Yingwei Ma, Teng Wang</div>
+                        <div class="pub-venue">The 34th IEEE International Symposium on Software Reliability Engineering (ISSRE 2023), Florence, Italy. (CCF-B) [pdf] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2022</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">To Follow or Not to Follow: Understanding Issue/Pull-Request Templates on GitHub <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Lei Yan, Ying Wang, and Huaimin Wang</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2022. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/template-TSE2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">FENSE: A Feature-Based Ensemble Modeling Approach to Cross-Project Just-in-Time Defect Prediction <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Tanghaoran Zhang, <span class="self">Yue Yu</span> (corresponding author), Xinjun Mao, Yao Lu, Zhixing Li, Huaimin Wang</div>
+                        <div class="pub-venue">Empirical Software Engineering (EMSE), 2022. (CCF-B, JCR-1) ] <a href="res/paper/FENSE-ESME2022.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">deGraphCS: Embedding Variable-based Flow Graph for Neural Code Search <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Chen Zeng, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Xin Xia, Zhiming Wang, Mingyang Geng, Linxiao Bai, Wei Dong, and Xiangke Liao</div>
+                        <div class="pub-venue">ACM Transactions on Software Engineering and Methodology (TOSEM), 2022. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/deGraphCS-TOSEM2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Pull Request Decisions Explained: An Empirical Overview <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xunhui Zhang, <span class="self">Yue Yu</span> (corresponding author), Georgios Gousios, Ayushi Rastogi</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2022. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/PRDecision-TSE2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Pull Request Latency Explained: An Empirical Overview <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xunhui Zhang, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Ayushi Rastogi, Huaimin Wang</div>
+                        <div class="pub-venue">Empirical Software Engineering (EMSE), 2022. (CCF-B, JCR-1) ]] <a href="res/paper/PR_Latency-ESME.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Opportunities and Challenges in Repeated Revisions to Pull-Requests: An Empirical Study <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Shanshan Li, Huaiming Wang</div>
+                        <div class="pub-venue">The 25th ACM Conference On Computer-Supported Cooperative Work And Social Computing (CSCW 2022), Taipei, China. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/mulrevision-cscw2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Who, What, Why and How? Towards the Monetary Incentive in Crowd Collaboration: A Case Study of Github's Sponsor Mechanism. The ACM CHI Conference on Human Factors in Computing Systems (CHI 2022), New Orleans, USA. (CCF-A) ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xunhui Zhang, Tao Wang, <span class="self">Yue Yu</span> (corresponding author), Qiubing Zeng, Zhixing Li, Huaiming Wang</div>
+                        <div class="pub-venue"> <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/sponsor-chi2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Multi-Intention-Aware Configuration Selection for Performance Tuning <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haochen He, Zhouyang Jia, Shanshan Li, <span class="self">Yue Yu</span> (corresponding author), Chenglong Zhou, Qing Liao, Ji Wang, Xiangke Liao</div>
+                        <div class="pub-venue">The 44th International Conference on Software Engineering (ICSE 2022), Pittsburgh, USA. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/safetune-icse2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Bridging Pre-trained Models and Downstream Tasks for Source Code Understanding <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Deze Wang, Zhouyang Jia, Shanshan Li, <span class="self">Yue Yu</span>, Yun Xiong, Wei Dong, Xiangke Liao</div>
+                        <div class="pub-venue">The 44th International Conference on Software Engineering (ICSE 2022), Pittsburgh, USA. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/pretrained-icse2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">NeuronFair: Interpretable White-Box Fairness Testing through Biased Neuron Identification <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haibin Zheng, Zhiqing Chen, Tianyu Du, Xuhong Zhang, Yao Cheng, Shouling Ji, Jingyi Wang, <span class="self">Yue Yu</span>, Jinyin Chen</div>
+                        <div class="pub-venue">The 44th International Conference on Software Engineering (ICSE 2022), Pittsburgh, USA. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/NeurnoFair-ICSE2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">A Universal Data Augmentation Approach for Fault Localization <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Huan Xie, Yan Lei, Meng Yan, <span class="self">Yue Yu</span>, Xin Xia, Xiaoguang Mao</div>
+                        <div class="pub-venue">The 44th International Conference on Software Engineering (ICSE 2022), Pittsburgh, USA. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/DFL-icse2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Reentrancy Vulnerability Detection and Localization: A Deep Learning Based Two-phase Approach <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhuo Zhang, Yan Lei, Meng Yan, <span class="self">Yue Yu</span>, Jiachi Chen, Shangwen Wang, Xiaoguang Mao</div>
+                        <div class="pub-venue">The 37th IEEE/ACM International Conference on Automated Software Engineering (ASE 2022), Michigan, USA. (CCF-A) [pdf] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Towards Usable Neural Comment Generation via Code-comment Linkage Interpretation: Method and Empirical Study <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Shuyao Jiang, Jiacheng Shen, Shengnan Wu, Yu Cai, <span class="self">Yue Yu</span>, Yangfan Zhou</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2022. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CCLink-TSE2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Influential Global and Local Contexts Guided Trace Representation for Fault Localization <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Zhuo Zhang, Yan Lei, Ting Su, Meng Yan, Xiaoguang Mao, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">ACM Transactions on Software Engineering and Methodology (TOSEM), 2022. (SCI, CCF-A) ] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/UNITE-TOSEM2022.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2021</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Are You Still Working on This? An Empirical Study on Pull Request Abandonment <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Gang Yin, Shanshan Li, and Huaimin Wang</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2021. (SCI, CCF-A) ]]] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/abPR_TSE2021.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">MulCode: A Multi-task Learning Approach for Source Code Understanding <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Deze Wang, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Wei Dong, Ji Wang, Qing liao</div>
+                        <div class="pub-venue">The 28th IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER 2021). (CCF-B) ] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/mulcode_saner2021.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">How to Cherry Pick the Bug Report for Better Summarization? <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haoran Liu, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Mingyang Gen, Xiaoguang Mao, Xiangke Liao</div>
+                        <div class="pub-venue">Empirical Software Engineering (EMSE), 2021. (CCF-B, JCR-1) ] <a href="res/paper/BugSum_ESME2021.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Detecting Adversarial Samples with Graph-Guided Testing <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Zuohui Chen, Renxuan Wang, Jingyang Xiang, <span class="self">Yue Yu</span>, Xin Xia, Shouling Ji, Qi Xuan, Xiaoniu Yang</div>
+                        <div class="pub-venue">The 36th IEEE/ACM International Conference on Automated Software Engineering (ASE), 2021. (CCF-A, Late Breaking Results Track) ] <a href="res/paper/AGT-ASE2021.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Dual Channel Among Task and Contribution on OSS Communities: An Empirical Study. International Journal of Software Engineering and Knowledge Engineering (IJSEKE), 2021. (SCI, CCF-C) ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yu Zhang, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Zhixing Li and Xiaochuan Wang</div>
+                        <div class="pub-venue"> <span class="badge">SCI, CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Duallinks-IJSEKE2021.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2020</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Redundancy, Context, and Preference: An Empirical Study of Duplicate Pull Requests in OSS Projects <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Minghui Zhou, Tao Wang, Gang Yin, Long Lan, and Huaimin Wang</div>
+                        <div class="pub-venue">IEEE Transactions on Software Engineering (TSE), 2020. (SCI, CCF-A) ]] <span class="badge">SCI, CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Dup_TSE_version.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">BugSum: Deep Context Understanding for Bug Report Summarization <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haoran Liu, <span class="self">Yue Yu</span> (corresponding author), Shanshan Li, Yong Guo, Deze Wang, Xiaoguang Mao</div>
+                        <div class="pub-venue">The 28th IEEE/ACM International Conference on Program Comprehension (ICPC 2020), Seoul, South Korea. (CCF-B) ] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/BugSum_ICPC2020.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">On the Shoulders of Giants: A New Dataset for Pull-based Development Research <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xunhui Zhang, Ayushi Rastogi, <span class="self">Yue Yu</span> (corresponding author)</div>
+                        <div class="pub-venue">The 17th International Conference on Mining Software Repositories (MSR 2020), Seoul, South Korea. (CCF-C, CORE-A) ]] <a href="res/paper/newPR_MSR2020.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Software Visualization and Deep Transfer Learning for Effective Software Defect Prediction <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Jinyin Chen, Keke Hu, <span class="self">Yue Yu</span>, Zhuangzhi Chen, Qi Xuan, Yi Liu, Vladimir Filkov</div>
+                        <div class="pub-venue">The 42th International Conference on Software Engineering (ICSE 2020), Seoul, South Korea. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/DTLDP_ICSE2020.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">CP-Detector: Using Configuration-related Performance Properties to Expose Performance Bugs <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Haochen He, Zhouyang Jia, Shanshan Li, Erci Xu, Tingting Yu, <span class="self">Yue Yu</span>, Ji Wang, Xiangke Liao</div>
+                        <div class="pub-venue">The 35th IEEE/ACM International Conference on Automated Software Engineering (ASE 2020), Melbourne, Australia. (CCF-A) ] <span class="badge">CCF-A</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CPDetector-ASE2020.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Crowd-intelligence-based software development method and practices <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Tao Wang, Gang Yin, <span class="self">Yue Yu</span>, Yang Zhang, Huaimin Wang</div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2020. (SCI, CCF-B, in Chinese) ] <span class="badge">SCI, CCF-B, in Chinese</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/CrowdOSS_SCIS2020.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2019</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Detecting Duplicate Contributions in Pull-based Model Combining Textual and Change Similarities <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Gang Yin, Xinjun Mao, Huaimin Wang</div>
+                        <div class="pub-venue">Journal of Computer Science and Technology (JCST), Springer, 2019. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Detecting Duplicate Contributions in Pull-based Model Combining Textual and Change Similarities-JCST201911.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Why API Documentation is Insufficient for Developers: an Empirical Study <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Fan Qiang, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Gang Yin, Huaimin Wang</div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2019. (SCI, CCF-B, Letter) ] <span class="badge">SCI, CCF-B, Letter</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Why API Doc-SCIS 2019.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">HAF: A Hybrid Annotation Framework Based on Expert Knowledge and Learning Technique <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span> <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Tao Wang, Gang Yin, Xinjun Mao, Huaimin Wang</div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2019. (SCI, CCF-B, Letter) ] <span class="badge">SCI, CCF-B, Letter</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/HAF-SCIS2019.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Multi-reviewing pull-requests: An exploratory study on GitHub OSS projects <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Dongyang Hu, Yang Zhang, Junsheng Chang, Gang Yin, <span class="self">Yue Yu</span>, Tao Wang</div>
+                        <div class="pub-venue">Information and Software Technology (IST), Elsevier, 2019. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Multi Review PR-IST 2019.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">TMDA: Task-Specific Multi-Source Domain Adaptation via Clustering Embedded Adversarial Training. IEEE International Conference on Data Mining (ICDM 2019), Beijing, China, 2019. (CCF-B) ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span></div>
+                        <div class="pub-authors">Haotian Wang, Wenjing Yang, Zhipeng Lin, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue"> <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/TMDA-ICDM2019.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2018</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">A Dataset of Duplicate Pull-requests in GitHub <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>*, Zhixing Li*, Gang Yin, Tao Wang, Huaimin Wang</div>
+                        <div class="pub-venue">The 15th International Conference on Mining Software Repositories (MSR 2018), Gothenburg, Sweden, 2018. (CCF-C, CORE-A) ] <a href="res/paper/DupPR-msr2017.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Within-Ecosystem Issue Linking: A Large-scale Study of Rails <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Zhang, <span class="self">Yue Yu</span>, Huaimin Wang, Bogdan Vasilescu and Vladimir Filkov</div>
+                        <div class="pub-venue">The 7th International Workshop on Mining Software Repositories (SoftwareMining@ASE 2018), France. 2018. ] <a href="res/paper/SoftwareMining_2018_EcoLinking.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Transferring Well-Trained Models for Cross-Project Issue Classification: A Large-Scale Empirical Study <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Yarong Zeng, Qiang Fan, Huaimin Wang</div>
+                        <div class="pub-venue">The 10th Asia-Pacific Symposium on Internetware (Internetware 2018), Beijing, China, 2018. ] <a href="res/paper/transferring-internetware2018.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+                <div class="pub-year">2017</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Where is the Road for Issue Reports Classification Based on Text Mining <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Qiang Fan, <span class="self">Yue Yu</span> (corresponding author), Gang Yin, Tao Wang, Huaimin Wang</div>
+                        <div class="pub-venue">Empirical Software Engineering and Measurement (ESEM 2017), Toronto, Canada, 2017. (CCF-B) ] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/Where is the Road for Issue Reports Classification Based on Text Mining-ESEM2017-cr.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Automatic Classification of Review Comments in Pull-based Development Model <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Gang Yin, Tao Wang, Qiang Fan, Huaimin Wang</div>
+                        <div class="pub-venue">The 29th International Conference on Software Engineering and Knowledge Engineering (SEKE), Pittsburgh, USA, 2017. (CCF-C) ] <span class="badge">CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/seke2017.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">What are they talking about? Analyzing Code Reviews in Pull-based Development Model <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, <span class="self">Yue Yu</span> (corresponding author), Gang Yin, Tao Wang, Huaimin Wang</div>
+                        <div class="pub-venue">Journal of Computer Science and Technology (JCST), Springer, 2017. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/what are they talking about-JCST2017.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">DevRec: A Developer Recommendation System for Open Source Repositories. International Conference on Software Reuse (ICSR), Springer, 2017. (CCF-C) ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Xunhui Zhang, Tao Wang, Gang Yin, Cheng Yang, <span class="self">Yue Yu</span>, Huaimin Wang</div>
+                        <div class="pub-venue"> <span class="badge">CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="https://link.springer.com/chapter/10.1007/978-3-319-56856-0_1">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Detecting duplicate pull-requests in GitHub. Asia-Pacific Symposium on Internetware, ACM, 2017. ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, Gang Yin, <span class="self">Yue Yu</span>, Tao Wang, Huaimin Wang</div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="https://dl.acm.org/citation.cfm?doid=3131704.3131725">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2016</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Reviewer Recommendation for Pull-Requests in GitHub: What Can We Learn from Code Review and Bug Assignment? <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Tao Wang</div>
+                        <div class="pub-venue">Information and Software Technology (IST), Elsevier, 2016. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/IST2016.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Determinants of pull-based development in the context of continuous integration <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Gang Yin, Tao Wang, Cheng Yang, Huaimin Wang</div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2016. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/pr-scis.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Social media in GitHub: the role of @-mention in assisting software development <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Zhang, Huaimin Wang, Gang Yin, Tao Wang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">Science China Information Sciences, Springer, 2016. (SCI, CCF-B) ] <span class="badge">SCI, CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="https://www.researchgate.net/publication/311653164_Social_media_in_GitHub_the_role_of_-mention_in_assisting_software_development">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Correlation-based software search by leveraging software term database <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Zhixing Li, Gang Yin, Yang Zhang, <span class="self">Yue Yu</span>, and Huaimin Wang</div>
+                        <div class="pub-venue">Frontiers of Computer Science (FCS), Springer, 2016. (SCI, CCF-C) [pdf] <span class="badge">SCI, CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2015</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Quality and Productivity Outcomes Relating to Continuous Integration in GitHub <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Bogdan Vasilescu*, <span class="self">Yue Yu</span>*, Huaimin Wang, Prem Devanbu, Vladimir Filkov</div>
+                        <div class="pub-venue">The 10th Joint Meeting of the European Software Engineering Conference and the ACM SIGSOFT Symposium on the Foundations of Software Engineering (ESEC/FSE 2015), Bergamo, Italy, 2015. (*both are first authors and contributed equally to the work, CCF-A) ] <a href="res/paper/fse2015.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Wait For It: Determinants of Pull Request Evaluation Latency on GitHub <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Vladimir Filkov, Prem Devanbu, Bogdan Vasilescu</div>
+                        <div class="pub-venue">The 12th International Conference on Mining Software Repositories (MSR 2015), Florence, Italy, 2015. (CCF-C, CORE-A) ] <a href="res/paper/msr2015.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Exploring the Use of @-mention to Assist Software Development in GitHub. The Seventh Asia-Pacific Symposium on Internetware, Wuhan, China, 2015. ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Zhang, Huaimin Wang, Gang Yin, Tao Wang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="res/paper/@mention_internetware2015.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Evaluating Bug Severity Using Crowd-based Knowledge: An Exploratory Study. The Seventh Asia-Pacific Symposium on Internetware, Wuhan, China, 2015. ] <span class="area-badge area-se">Software Engineering</span> <span class="area-badge area-dist">Distributed AI Systems</span> <span class="area-badge area-llm">Agentic AI & LLMs</span></div>
+                        <div class="pub-authors">Yang Zhang, Huaimin Wang, Gang Yin, Tao Wang, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="res/paper/BugSOF_Internetware2015.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2014</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Ling. Reviewer Recommender of Pull-Requests in GitHub <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Charles X</div>
+                        <div class="pub-venue">The 30th IEEE International Conference on Software Maintenance and Evolution (ICSME 2014), Victoria, Canada, 2014. (CCF-B) ]] <span class="badge">CCF-B</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/icsme2014.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Exploring the Patterns of Social Behavior in GitHub. International Workshop on Crowd-based Software Development Methods and Technologies (CrowdSoft), Hong Kong, 2014. ] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Tao Wang</div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="res/paper/crowdsoft2014.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Investigating social media in GitHub's pull-requests: a case study on Ruby on Rails. International Workshop on Crowd-based Software Development Methods and Technologies (CrowdSoft), Hong Kong, 2014 <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Zhang, Gang Yin, <span class="self">Yue Yu</span>, Huaimin Wang</div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">An Exploratory Study of @-mention in GitHub's Pull-requests <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Yang Zhang, Gang Yin, <span class="self">Yue Yu</span>, Huaimin Wang</div>
+                        <div class="pub-venue">The 21th Asia-Pacific Software Engineering Conference (APSEC 2014), JEJU, KOREA, 2014. <span class="badge">CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="#">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2013</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">HESA: The Construction and Evaluation of Hierarchical Software Feature Repository <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Xiang Li</div>
+                        <div class="pub-venue">The 25th International Conference on Software Engineering and Knowledge Engineering (SEKE 2013), Boston, USA, 2013. (CCF-C) ] ] <span class="badge">CCF-C</span></div>
+                        <div class="pub-links">
+                            <a href="res/paper/PaperID325-HESA.pdf">PDF</a>
+                        </div>
+                    </li>
+                    <li class="pub-item">
+                        <div class="pub-title">Mining and Recommending Software Features across Multiple Web Repositories. The Fifth Asia-Pacific Symposium on Internetware, Changsha, China, 2013. ]] <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors"><span class="self">Yue Yu</span>, Huaimin Wang, Gang Yin, Bo Liu</div>
+                        <div class="pub-venue"></div>
+                        <div class="pub-links">
+                            <a href="res/paper/F-recommendation-CameraReady.pdf">PDF</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-year">2011</div>
+                <ul class="pub-list">
+                    <li class="pub-item">
+                        <div class="pub-title">Optimization of Program Behavior Model for Trusted Computing Dynamic Attestation <span class="area-badge area-se">Software Engineering</span></div>
+                        <div class="pub-authors">Fajiang Yu, Yuewei Xu, <span class="self">Yue Yu</span></div>
+                        <div class="pub-venue">Journal of Computational Information Systems, 7(5): 1436-1445, 2011 ] <a href="http://www.jofcis.com/publishedpapers/2011_7_5_1436_1445.pdf" class="pdf-link">[PDF]</a></div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Visitor Statistics -->
+            <div class="visitor-stats">
+                <h3>🌍 Visitor Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">--</span>
+                        <span class="stat-label">Total Visitors</span>
+                    </div>
+                    <div class="stat-item regions">
+                        <span class="stat-label">Top Regions</span>
+                        <ul class="region-list">
+                            <li>China 🇨🇳</li>
+                            <li>USA 🇺🇸</li>
+                            <li>Europe 🇪🇺</li>
+                            <li>Asia Pacific 🌏</li>
+                        </ul>
+                    </div>
+                </div>    
+            </div>
+
+            <footer>
+                <p>© 2026 Yue Yu | 于越</p>
+                <p style="margin-top: 6px; font-size: 11px;">Last updated: February 2026</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
