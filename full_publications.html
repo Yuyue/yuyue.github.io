@@ -133,6 +133,31 @@
             gap: 8px;
             justify-content: center;
         }
+		
+		.area-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .area-se {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .area-dist {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .area-llm {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
 
         .skill-tag {
             font-size: 12px;
@@ -498,45 +523,68 @@
     <div class="container">
         <aside class="sidebar">
             <div class="profile">
-                <img src="res/photo.jpg" alt="Yue Yu" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+                <img src="res/avatar_yy.jpg" alt="Yue Yu" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
                 <h1 class="name">Yue Yu</h1>
-                <div class="name-cn">于 越</div>
+                <div class="name-cn">余 跃</div>
                 <div class="title">Professor / 教授</div>
-                <div class="affiliation">Pengcheng Laboratory<br>鹏城实验室</div>
+                <div class="affiliation">Pengcheng Laboratory<br>Shenzhen, Guangdong, P.R.C</div>
                 
                 <div class="contact">
-                    <a href="mailto:yuy@pcl.ac.cn">yuy@pcl.ac.cn</a>
-                    <a href="https://github.com/Yuyue" target="_blank">GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a>
+					<a>Email: yuy &lt;at&gt; pcl &lt;dot&gt; ac &lt;dot&gt; cn</a>
+                   <!-- <a href="https://github.com/Yuyue" target="_blank">GitHub</a> -->
+                    <a href="https://scholar.google.com/citations?user=VnqWgEwAAAAJ&hl=en" target="_blank">Google Scholar</a>
                 </div>
             </div>
 
+            <!-- Skills Tags -->
             <div class="skills">
                 <div class="skills-title">Research Areas</div>
                 <div class="skill-tags">
-                    <span class="skill-tag">Software Engineering</span>
-                    <span class="skill-tag">Distributed AI Systems</span>
-                    <span class="skill-tag">Agentic AI & LLMs</span>
+                    <span class="area-badge area-se">Software Engineering</span>
+					<span class="area-badge area-dist">Distributed AI Systems</span>
+					<span class="area-badge area-llm">Agentic AI & LLMs</span>
                 </div>
             </div>
 
+            <!-- Education -->
             <div class="sidebar-section">
                 <div class="sidebar-title">Education</div>
                 <div class="exp-item-compact">
-                    <div class="exp-role">Ph.D. in Software Engineering</div>
-                    <div class="exp-place">NUDT</div>
-                    <div class="exp-time">2013 – 2016</div>
+                    <div class="exp-role">Master & Ph.D.</div>
+                    <div class="exp-place">National University of Defense Technology</div>
+                    <div class="exp-time">2011 – 2016</div>
                 </div>
                 <div class="exp-item-compact">
-                    <div class="exp-role">Visiting Student</div>
+                    <div class="exp-role">Visitor</div>
                     <div class="exp-place">UC Davis, USA</div>
                     <div class="exp-time">2014 – 2015</div>
                 </div>
             </div>
 
+            <!-- Experience -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Experience</div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Professor</div>
+                    <div class="exp-place">Pengcheng Laboratory</div>
+                    <div class="exp-time">2024 – Present</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Associate Professor</div>
+                    <div class="exp-place">National University of Defense Technology</div>
+                    <div class="exp-time">2019 – 2024</div>
+                </div>
+                <div class="exp-item-compact">
+                    <div class="exp-role">Assistant Professor</div>
+                    <div class="exp-place">National University of Defense Technology</div>
+                    <div class="exp-time">2016 – 2019</div>
+                </div>
+            </div>
+            
             <nav class="nav">
-                <a href="index.html">About</a>
-                <a href="publications.html" class="active">Publications</a>
+                <a href="#about" class="active">About</a>
+                <a href="#publications">Publications</a>
+                <a href="#awards">Awards</a>
             </nav>
         </aside>
 
